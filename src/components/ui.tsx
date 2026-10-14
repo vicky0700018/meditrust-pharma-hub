@@ -71,7 +71,7 @@ export function EnquiryForm({ source, fields, defaultType, submitLabel = "Send E
       else if (f.type === "email" && v && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) e[f.name] = "Enter a valid email";
       else if (f.type === "tel" && v && !/^[0-9+\-\s]{7,15}$/.test(v)) e[f.name] = "Enter a valid phone number";
     }
-    if (values.message && values.message.length > 1000) e.message = "Message must be under 1000 characters";
+    if (values["message"] && values["message"].length > 1000) e.message = "Message must be under 1000 characters";
     return e;
   };
 
@@ -81,8 +81,8 @@ export function EnquiryForm({ source, fields, defaultType, submitLabel = "Send E
     setErrors(e);
     if (Object.keys(e).length) return;
     const id = addEnquiry({
-      source, name: values.name ?? "", organization: values.organization ?? "", email: values.email ?? "",
-      phone: values.phone ?? "", type: values.type || defaultType || "General Enquiry", message: values.message ?? "",
+      source, name: values["name"] ?? "", organization: values["organization"] ?? "", email: values["email"] ?? "",
+      phone: values["phone"] ?? "", type: values["type"] || defaultType || "General Enquiry", message: values["message"] ?? "",
     });
     setDone(id);
     setValues({ type: defaultType ?? "" });

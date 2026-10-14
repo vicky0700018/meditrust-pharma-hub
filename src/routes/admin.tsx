@@ -268,7 +268,7 @@ function Gallery() {
   const addBulk = () => {
     const urls = bulk.split("\n").map((u) => u.trim()).filter((u) => /^https?:\/\/|^\//.test(u));
     if (!urls.length) return;
-    set("gallery", (g) => [...urls.map((url, i): GalleryImage => ({ id: `g${Date.now().toString(36)}${i}`, title: "New image", alt: "Healthcare image", category: galleryCategories[0], url, visible: true })), ...g]);
+    set("gallery", (g) => [...urls.map((url, i): GalleryImage => ({ id: `g${Date.now().toString(36)}${i}`, title: "New image", alt: "Healthcare image", category: galleryCategories[0] ?? "", url, visible: true })), ...g]);
     setBulk("");
   };
   return (
@@ -280,7 +280,7 @@ function Gallery() {
       </div>
       <Crud<GalleryImage>
         title="Gallery images" idPrefix="g" items={gallery} setItems={(fn) => set("gallery", fn)}
-        blank={() => ({ id: "", title: "", alt: "", category: galleryCategories[0], url: "", visible: true })}
+        blank={() => ({ id: "", title: "", alt: "", category: galleryCategories[0] ?? "", url: "", visible: true })}
         fields={[
           { key: "title", label: "Title", required: true },
           { key: "category", label: "Category", type: "select", options: galleryCategories.map((c) => ({ value: c, label: c })) },
@@ -416,7 +416,7 @@ function Settings() {
   const [f, setF] = useState(settings);
   const [links, setLinks] = useState(settings.footerLinks.map((l) => `${l.label} | ${l.to}`).join("\n"));
   const save = () => {
-    const footerLinks = links.split("\n").map((l) => l.split("|").map((x) => x.trim())).filter((p) => p[0] && p[1]).map(([label, to]) => ({ label, to }));
+    const footerLinks = links.split("\n").map((l) => l.split("|").map((x) => x.trim())).filter((p) => p[0] && p[1]).map(([label, to]) => ({ label: label ?? "", to: to ?? "" }));
     set("settings", (s) => ({ ...s, ...f, home: s.home, footerLinks }));
     toast("Settings saved");
   };
