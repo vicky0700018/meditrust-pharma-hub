@@ -4,7 +4,7 @@ import { useStore } from "@/lib/store";
 import { formatPrice } from "@/lib/commerce";
 import { Notice } from "@/components/ui";
 import { CheckIcon } from "@/components/Icons";
-import { useTotals } from "./cart";
+import { useTotals } from "@/lib/useTotals";
 
 export const Route = createFileRoute("/checkout")({
   head: () => ({

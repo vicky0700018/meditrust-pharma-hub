@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useStore } from "@/lib/store";
-import { canBuyDirectly, computeTotals, formatPrice } from "@/lib/commerce";
+import { canBuyDirectly, formatPrice } from "@/lib/commerce";
+import { useTotals } from "@/lib/useTotals";
 import { SafeImg } from "@/components/SafeImg";
 import { Notice } from "@/components/ui";
 import { CartIcon, TrashIcon } from "@/components/Icons";
@@ -17,12 +18,6 @@ export const Route = createFileRoute("/cart")({
   }),
   component: Cart,
 });
-
-export function useTotals() {
-  const { cart, products, settings, coupon } = useStore();
-  const c = settings.coupons.find((x) => x.code === coupon.toUpperCase());
-  return { ...computeTotals(cart, products, { shippingThreshold: settings.shippingThreshold, shippingFee: settings.shippingFee, couponPercent: c?.percent ?? 0 }), couponObj: c };
-}
 
 function Cart() {
   const { cart, products, setQty, settings, coupon, set } = useStore();
