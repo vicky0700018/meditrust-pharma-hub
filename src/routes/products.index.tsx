@@ -6,13 +6,13 @@ import { Notice, PageHero } from "@/components/ui";
 import { CloseIcon, FilterIcon } from "@/components/Icons";
 import { img } from "@/data/images";
 
-type Search = { q?: string; cat?: string; featured?: boolean };
+type Search = { q?: string | undefined; cat?: string | undefined; featured?: boolean | undefined };
 
 export const Route = createFileRoute("/products/")({
   validateSearch: (s: Record<string, unknown>): Search => ({
-    q: typeof s.q === "string" && s.q ? s.q : undefined,
-    cat: typeof s.cat === "string" && s.cat ? s.cat : undefined,
-    featured: s.featured === true || s.featured === "true" ? true : undefined,
+    q: typeof s['q'] === "string" && s['q'] ? s['q'] : undefined,
+    cat: typeof s['cat'] === "string" && s['cat'] ? s['cat'] : undefined,
+    featured: s['featured'] === true || s['featured'] === "true" ? true : undefined,
   }),
   head: () => ({
     meta: [

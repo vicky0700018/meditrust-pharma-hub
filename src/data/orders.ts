@@ -15,7 +15,7 @@ export type Order = {
   status: OrderStatus;
 };
 
-const c = (name: string, city: string) => ({ name, email: `${name.split(" ")[0].toLowerCase()}@example.com`, phone: "9000000000", address: "Demo Street 1", city, state: "Maharashtra", postal: "411001" });
+const c = (name: string, city: string) => ({ name, email: `${(name.split(" ")[0] ?? "demo").toLowerCase()}@example.com`, phone: "9000000000", address: "Demo Street 1", city, state: "Maharashtra", postal: "411001" });
 
 export const defaultOrders: Order[] = [
   { id: "DEMO-10421", date: "2026-09-28T10:20:00Z", customer: c("Riya Demo", "Pune"), items: [{ productId: "p002", name: "Digital Blood Pressure Monitor", price: 1899, qty: 1 }], subtotal: 1899, discount: 0, shipping: 0, total: 1899, paymentStatus: "Demo – Paid", status: "Delivered" },

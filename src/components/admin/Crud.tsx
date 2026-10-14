@@ -31,7 +31,7 @@ function fromForm<T extends Row>(f: Record<string, string | boolean>, fields: Fi
     if (d.type === "checkbox") o[d.key] = !!v;
     else if (d.type === "number") o[d.key] = Number(v) || 0;
     else if (d.type === "list") o[d.key] = String(v).split("\n").map((s) => s.trim()).filter(Boolean);
-    else if (d.type === "kv") o[d.key] = Object.fromEntries(String(v).split("\n").map((l) => l.split(":")).filter((p) => p.length >= 2 && p[0].trim()).map(([k, ...r]) => [k.trim(), r.join(":").trim()]));
+    else if (d.type === "kv") o[d.key] = Object.fromEntries(String(v).split("\n").map((l) => l.split(":")).filter((p) => p.length >= 2 && (p[0] ?? "").trim()).map(([k, ...r]) => [(k ?? "").trim(), r.join(":").trim()]));
     else o[d.key] = String(v).trim();
   }
   return o as Partial<T>;
